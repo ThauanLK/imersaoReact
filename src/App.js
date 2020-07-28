@@ -1,10 +1,12 @@
 import React from "react";
-import Menu from "./components/Header/index";
-import BannerMain from "./components/BannerMain/index";
-import Carousel from "./components/Carousel/index";
-import Footer from "./components/Footer/index";
+import Home from "./views/Home/index";
+import Layout from "./components/Layout/index";
 
 function App() {
-  return <Menu />;
+  return (
+    <Layout>
+      <Home />
+    </Layout>
+  );
 }
 export default App;
