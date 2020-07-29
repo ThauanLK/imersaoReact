@@ -6,7 +6,6 @@ function CadastroCategoria() {
     <div>
       <h1>Página CadastroCategoria</h1>
       <Link to="/cadastro/categoria">CadastroVideo</Link>
-      <h1>AAAAAAAAAAAAAAAA</h1>
     </div>
   );
 }
