@@ -5,7 +5,7 @@ function CadastroCategoria() {
   return (
     <div>
       <h1>Página CadastroCategoria</h1>
-      <Link to="/cadastro/categoria">CadastroVideo</Link>
+      <Link to="/git">Home</Link>
     </div>
   );
 }
