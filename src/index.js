@@ -11,14 +11,14 @@ const Pagina404 = () => <div>Página 404</div>;
 
 ReactDOM.render(
   <BrowserRouter>
-    <Layout>
-      <Switch>
-        <Route path="/" component={Home} exact />
+    <Switch>
+      <Route path="/" component={Home} exact />
+      <Layout>
         <Route path="/cadastro/video" component={CadastroVideo} />
         <Route path="/cadastro/categoria" component={CadastroCategoria} />
         <Route component={Pagina404} />
-      </Switch>
-    </Layout>
+      </Layout>
+    </Switch>
   </BrowserRouter>,
   document.getElementById("root")
 );
