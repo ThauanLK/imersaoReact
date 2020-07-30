@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Layout from "../../components/Layout/index";
 
 function CadastroVideo() {
+  
   return (
     <Layout>
       <h1>Página CadastroVideo</h1>
