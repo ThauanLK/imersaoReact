@@ -23,7 +23,7 @@ function CadastroCategoria() {
 
   return (
     <Layout>
-      <h1>Página CadastroCategoria </h1>
+      <h1>Nova Categoria </h1>
       <form
         onSubmit={(event) => {
           event.preventDefault();
