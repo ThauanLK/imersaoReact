@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import Layout from "../../components/Layout/index";
-import FormField from "./components/FormField/index";
+import React, { useState } from 'react';
+import Layout from '../../components/Layout/index';
+import FormField from './components/FormField/index';
+import Button from '../../components/Button/index';
 
 function CadastroCategoria() {
   const defaultCategoryValues = {
-    name: " ",
-    description: " ",
-    color: "#333333",
+    name: ' ',
+    description: ' ',
+    color: '#333333',
   };
 
   const [categories, setCategories] = useState([]);
@@ -17,7 +18,7 @@ function CadastroCategoria() {
   };
 
   const onChangeHandler = (eventName) => {
-    setValue(eventName.target.getAttribute("name"), eventName.target.value);
+    setValue(eventName.target.getAttribute('name'), eventName.target.value);
   };
 
   return (
@@ -40,7 +41,7 @@ function CadastroCategoria() {
 
         <FormField
           label="Descrição"
-          type="text"
+          type="textarea"
           name="description"
           value={categoryValue.description}
           onChange={onChangeHandler}
@@ -53,11 +54,9 @@ function CadastroCategoria() {
           value={categoryValue.color}
           onChange={onChangeHandler}
         />
-        <button>Cadastrar</button>
+        <Button>Cadastrar</Button>
         <ul>
-          {categories.map((categories, index) => {
-            return <li key={`${categories}${index}`}>{categories.name}</li>;
-          })}
+          {categories.map((categories, index) => <li key={`${categories}${index}`}>{categories.name}</li>)}
         </ul>
       </form>
     </Layout>
