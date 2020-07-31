@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-const wrapperFormField = styled.div`
+const WrapperFormField = styled.div`
   position: relative;
   textarea {
     min-height: 150px;
@@ -72,31 +72,32 @@ const Input = styled.input`
 function FormField({
   label, type, name, value, onChange,
 }) {
-  const fieldID = `id_${name}`;
   const isTextArea = type === 'textarea';
   const tag = isTextArea ? 'textarea' : 'input';
+  const hasValue = value.length > 0;
   return (
-    <wrapperFormField>
-      <Label htmlFor={fieldID}>
-        {label}
-        :
+    <WrapperFormField>
+      <Label>
         <Input
           as={tag}
-          id={fieldID}
           type={type}
           value={value}
           name={name}
+          hasValue={hasValue}
           onChange={onChange}
         />
+        <Label.Text>
+          {label}
+          :
+        </Label.Text>
       </Label>
-    </wrapperFormField>
+    </WrapperFormField>
   );
 }
 
 FormField.defaultProps = {
-  type: 'text',
-  value: 'text',
-  onChange: () => {},
+  type: 'text',
+  value: '',
 };
 
 FormField.propTypes = {
@@ -104,7 +105,7 @@ FormField.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  onChange: PropTypes.func,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default FormField;

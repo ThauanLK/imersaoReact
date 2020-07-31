@@ -5,8 +5,8 @@ import Button from '../../components/Button/index';
 
 function CadastroCategoria() {
   const defaultCategoryValues = {
-    name: ' ',
-    description: ' ',
+    name: '',
+    description: '',
     color: '#333333',
   };
 
