@@ -12,7 +12,7 @@ function CadastroCategoria() {
 
   const URL = 'http://localhost:8080/categorias';
 
-  const [categories, setCategories] = useState([]);
+  const [Categories, setCategories] = useState([]);
   const [categoryValue, setCategoryValue] = useState(defaultCategoryValues);
 
   const setValue = (key, value) => {
@@ -24,13 +24,13 @@ function CadastroCategoria() {
   };
 
   useEffect(() => {
-    // console.log('alo');
-    // setTimeout(() => {
-    //   setCategories([...categories, categoryValue]);
-    //   setCategoryValue(defaultCategoryValues);
-    // }, 4 * 1000);
-    fetch(URL);
-  }, [categories]);
+    fetch(URL)
+      .then(async (responseServer) => {
+        const response = await responseServer.json();
+        console.log(response);
+        setCategories([...response,]);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -38,8 +38,9 @@ function CadastroCategoria() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          setCategories([...categories, categoryValue]);
+          setCategories([...Categories, categoryValue]);
           setCategoryValue(defaultCategoryValues);
+          console.log(Categories);
         }}
       >
         <FormField
@@ -64,13 +65,12 @@ function CadastroCategoria() {
           onChange={onChangeHandler}
         />
         <Button>Cadastrar</Button>
-        {categories.length === 0 && (
-        <div>Carregando</div>
-        )}
+        {Categories.length === 0 && <div>Carregando</div>}
 
         <ul>
-          {categories.map((categories, index) => (
-            <li key={`${categories}${index}`}>{categories.name}</li>
+          {Categories.map((Categories, index) => (
+
+            <li key={`${Categories}${index}`}>{Categories.name}</li>
           ))}
         </ul>
       </form>
