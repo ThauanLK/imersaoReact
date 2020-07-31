@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../../components/Layout/index';
 import FormField from './components/FormField/index';
 import Button from '../../components/Button/index';
@@ -10,6 +10,8 @@ function CadastroCategoria() {
     color: '#333333',
   };
 
+  const URL = 'http://localhost:8080/categorias';
+
   const [categories, setCategories] = useState([]);
   const [categoryValue, setCategoryValue] = useState(defaultCategoryValues);
 
@@ -20,6 +22,15 @@ function CadastroCategoria() {
   const onChangeHandler = (eventName) => {
     setValue(eventName.target.getAttribute('name'), eventName.target.value);
   };
+
+  useEffect(() => {
+    // console.log('alo');
+    // setTimeout(() => {
+    //   setCategories([...categories, categoryValue]);
+    //   setCategoryValue(defaultCategoryValues);
+    // }, 4 * 1000);
+    fetch(URL);
+  }, [categories]);
 
   return (
     <Layout>
@@ -38,7 +49,6 @@ function CadastroCategoria() {
           value={categoryValue.name}
           onChange={onChangeHandler}
         />
-
         <FormField
           label="Descrição"
           type="textarea"
@@ -46,7 +56,6 @@ function CadastroCategoria() {
           value={categoryValue.description}
           onChange={onChangeHandler}
         />
-
         <FormField
           label="Cor"
           type="color"
@@ -55,8 +64,14 @@ function CadastroCategoria() {
           onChange={onChangeHandler}
         />
         <Button>Cadastrar</Button>
+        {categories.length === 0 && (
+        <div>Carregando</div>
+        )}
+
         <ul>
-          {categories.map((categories, index) => <li key={`${categories}${index}`}>{categories.name}</li>)}
+          {categories.map((categories, index) => (
+            <li key={`${categories}${index}`}>{categories.name}</li>
+          ))}
         </ul>
       </form>
     </Layout>
