@@ -1,23 +1,23 @@
 import { useState } from 'react';
 
 export default function useForm(defaultCategoryValues) {
-  const [categoryValue, setCategoryValue] = useState(defaultCategoryValues);
+  const [value, setValue] = useState(defaultCategoryValues);
 
-  const setValue = (key, value) => {
-    setCategoryValue({ ...categoryValue, [key]: value });
+  const setValues = (key, inValue) => {
+    setValue({ ...value, [key]: inValue });
   };
 
   const onChangeHandler = (eventName) => {
-    setValue(eventName.target.getAttribute('name'), eventName.target.value);
+    setValues(eventName.target.getAttribute('name'), eventName.target.value);
   };
 
   const clearForm = () => {
-    setValue(defaultCategoryValues);
+    setValues(defaultCategoryValues);
   };
 
   return {
     onChangeHandler,
-    categoryValue,
+    value,
     clearForm,
   };
 }

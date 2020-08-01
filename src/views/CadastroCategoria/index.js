@@ -12,7 +12,7 @@ function CadastroCategoria() {
     color: '#333333',
   };
 
-  const { onChangeHandler, categoryValue, clearForm } = useForm(
+  const { onChangeHandler, value, clearForm } = useForm(
     defaultCategoryValues,
   );
   const [categories, setCategories] = useState([]);
@@ -48,7 +48,7 @@ function CadastroCategoria() {
       <form
         onSubmit={(event) => { // inserir o metodo post para o cadastro de uma categoria
           event.preventDefault();
-          setCategories([...categories, categoryValue]);
+          setCategories([...categories, value]);
           clearForm(defaultCategoryValues);
           console.log(categories);
         }}
@@ -57,21 +57,21 @@ function CadastroCategoria() {
           label="Nome da Categoria"
           type="text"
           name="name"
-          value={categoryValue.name}
+          value={value.name}
           onChange={onChangeHandler}
         />
         <FormField
           label="Descrição"
           type="textarea"
           name="description"
-          value={categoryValue.description}
+          value={value.description}
           onChange={onChangeHandler}
         />
         <FormField
           label="Cor"
           type="color"
           name="color"
-          value={categoryValue.color}
+          value={value.color}
           onChange={onChangeHandler}
         />
         <Button>Cadastrar</Button>
