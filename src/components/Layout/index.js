@@ -1,7 +1,7 @@
-import React from "react";
-import Menu from "../Header/index";
-import Footer from "../Footer/index";
-import styled from "styled-components";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import Menu from '../Header/index';
+import Footer from '../Footer/index';
 
 const Main = styled.main`
   background-color: var(--black);
@@ -10,15 +10,17 @@ const Main = styled.main`
   padding-top: 50px;
   padding-left: 5%;
   padding-right: 5%;
+  ${({ paddingAll }) => css`
+  padding=${paddingAll}`}
 `;
 
 function Layout(props) {
   return (
-    <React.Fragment>
+    <>
       <Menu />
-      <Main>{props.children}</Main>
+      <Main style={{ padding: props.paddingAll }}>{props.children}</Main>
       <Footer />
-    </React.Fragment>
+    </>
   );
 }
 
