@@ -9,7 +9,7 @@ import VideoRepository from '../../repositories/videos';
 function CadastroVideo() {
   const history = useHistory();
   const { value, clearForm, onChangeHandler } = useForm({
-    title: 'Video A',
+    title: 'Video ABC',
     url: 'https://www.youtube.com/watch?v=DI96RZGQMTs',
     category: 'Front-End',
   });
@@ -20,8 +20,16 @@ function CadastroVideo() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          VideoRepository.createVideos(value);
-          history.push('/');
+          VideoRepository.createVideos(
+            {
+              titulo: value.title,
+              url: value.url,
+              categoriaId: 1,
+            },
+          ).then(
+            console.log('Cadastrado com sucesso'),
+            history.push('/'),
+          );
         }}
       >
         <FormField
