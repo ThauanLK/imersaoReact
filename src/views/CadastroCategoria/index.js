@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import Layout from '../../components/Layout/index';
-import FormField from './components/FormField/index';
-import Button from '../../components/Button/index';
+import React, { useState, useEffect } from "react";
+import Layout from "../../components/Layout/index";
+import FormField from "./components/FormField/index";
+import Button from "../../components/Button/index";
 
 function CadastroCategoria() {
   const defaultCategoryValues = {
-    name: '',
-    description: '',
-    color: '#333333',
+    name: "",
+    description: "",
+    color: "#333333",
   };
 
   const [categories, setCategories] = useState([]);
@@ -18,12 +18,12 @@ function CadastroCategoria() {
   };
 
   const onChangeHandler = (eventName) => {
-    setValue(eventName.target.getAttribute('name'), eventName.target.value);
+    setValue(eventName.target.getAttribute("name"), eventName.target.value);
   };
 
   useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:8080/categorias';
+    if (window.location.href.includes("localhost")) {
+      const URL = "http://localhost:8080/categorias";
       fetch(URL).then(async (respostaDoServer) => {
         if (respostaDoServer.ok) {
           const resposta = await respostaDoServer.json();
@@ -31,7 +31,7 @@ function CadastroCategoria() {
           console.log(resposta);
           return;
         }
-        throw new Error('Não foi possível pegar os dados');
+        throw new Error("Não foi possível pegar os dados");
       });
     }
   }, []);
@@ -73,7 +73,7 @@ function CadastroCategoria() {
 
         <ul>
           {categories.map((Categorie, index) => (
-            <li key={`${categories}${index}`}>{Categorie.nome}</li>
+            <li key={`${categories}${index}`}>{Categorie.titulo}</li>
           ))}
         </ul>
       </form>
