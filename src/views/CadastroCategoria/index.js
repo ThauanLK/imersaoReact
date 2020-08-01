@@ -10,9 +10,7 @@ function CadastroCategoria() {
     color: '#333333',
   };
 
-  const URL = 'http://localhost:8080/categorias';
-
-  const [Categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [categoryValue, setCategoryValue] = useState(defaultCategoryValues);
 
   const setValue = (key, value) => {
@@ -24,12 +22,18 @@ function CadastroCategoria() {
   };
 
   useEffect(() => {
-    fetch(URL)
-      .then(async (responseServer) => {
-        const response = await responseServer.json();
-        console.log(response);
-        setCategories([...response,]);
+    if (window.location.href.includes('localhost')) {
+      const URL = 'http://localhost:8080/categorias';
+      fetch(URL).then(async (respostaDoServer) => {
+        if (respostaDoServer.ok) {
+          const resposta = await respostaDoServer.json();
+          setCategories(resposta);
+          console.log(resposta);
+          return;
+        }
+        throw new Error('Não foi possível pegar os dados');
       });
+    }
   }, []);
 
   return (
@@ -38,9 +42,9 @@ function CadastroCategoria() {
       <form
         onSubmit={(event) => {
           event.preventDefault();
-          setCategories([...Categories, categoryValue]);
+          setCategories([...categories, categoryValue]);
           setCategoryValue(defaultCategoryValues);
-          console.log(Categories);
+          console.log(categories);
         }}
       >
         <FormField
@@ -65,12 +69,11 @@ function CadastroCategoria() {
           onChange={onChangeHandler}
         />
         <Button>Cadastrar</Button>
-        {Categories.length === 0 && <div>Carregando</div>}
+        {categories.length === 0 && <div>Carregando</div>}
 
         <ul>
-          {Categories.map((Categories, index) => (
-
-            <li key={`${Categories}${index}`}>{Categories.name}</li>
+          {categories.map((Categorie, index) => (
+            <li key={`${categories}${index}`}>{Categorie.nome}</li>
           ))}
         </ul>
       </form>
