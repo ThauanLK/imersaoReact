@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../../components/Layout/index';
 import FormField from './components/FormField/index';
 import Button from '../../components/Button/index';
+import useForm from '../../hooks/useForm/index';
+import url from '../../services/url/index';
 
 function CadastroCategoria() {
   const defaultCategoryValues = {
@@ -10,40 +12,44 @@ function CadastroCategoria() {
     color: '#333333',
   };
 
+  const { onChangeHandler, categoryValue, clearForm } = useForm(
+    defaultCategoryValues,
+  );
   const [categories, setCategories] = useState([]);
-  const [categoryValue, setCategoryValue] = useState(defaultCategoryValues);
-
-  const setValue = (key, value) => {
-    setCategoryValue({ ...categoryValue, [key]: value });
-  };
-
-  const onChangeHandler = (eventName) => {
-    setValue(eventName.target.getAttribute('name'), eventName.target.value);
-  };
 
   useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:8080/categorias';
-      fetch(URL).then(async (respostaDoServer) => {
-        if (respostaDoServer.ok) {
-          const resposta = await respostaDoServer.json();
-          setCategories(resposta);
-          console.log(resposta);
-          return;
-        }
-        throw new Error('Não foi possível pegar os dados');
-      });
-    }
+    // if (window.location.href.includes('localhost')) {
+    //   const URL = 'http://localhost:8080/categorias';
+    //   fetch(URL).then(async (respostaDoServer) => {
+    //     if (respostaDoServer.ok) {
+    //       const resposta = await respostaDoServer.json();
+    //       setCategories(resposta);
+    //       console.log(resposta);
+    //       return;
+    //     }
+    //     throw new Error('Não foi possível pegar os dados');
+    //   });
+    // }
+
+    fetch(`${url.Back}categorias`).then(async (responseServer) => {
+      if (responseServer.ok) {
+        const resposta = await responseServer.json();
+        setCategories(resposta);
+        console.log(resposta);
+        return;
+      }
+      throw new Error('Não foi possível pegar os dados');
+    });
   }, []);
 
   return (
     <Layout>
       <h1>Nova Categoria </h1>
       <form
-        onSubmit={(event) => {
+        onSubmit={(event) => { // inserir o metodo post para o cadastro de uma categoria
           event.preventDefault();
           setCategories([...categories, categoryValue]);
-          setCategoryValue(defaultCategoryValues);
+          clearForm(defaultCategoryValues);
           console.log(categories);
         }}
       >

@@ -1,22 +1,39 @@
-import React from "react";
-import Menu from "../../components/Header/index";
-import dadosIniciais from "../../dados_iniciais.json";
-import BannerMain from "../../components/BannerMain";
-import Carousel from "../../components/Carousel";
-import Footer from "../../components/Footer";
+import React, { useEffect, useState } from 'react';
+import Menu from '../../components/Header/index';
+import BannerMain from '../../components/BannerMain';
+import Carousel from '../../components/Carousel';
+import Footer from '../../components/Footer';
+import categoriesRepository from '../../repositories/categories';
+import Layout from '../../components/Layout/index';
 
 function Home() {
-  return (
-    <div style={{ background: "#141414" }}>
-      <Menu />
+  const [initialData, setInitialData] = useState([]);
 
-      <BannerMain
-        videoTitle={dadosIniciais.categorias[0].videos[0].titulo}
-        url={dadosIniciais.categorias[0].videos[0].url}
-        videoDescription={
-          "O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!"
-        }
-      />
+  useEffect(() => {
+    categoriesRepository
+      .getAllWithVideos()
+      .then((categoriasComVideos) => {
+        setInitialData(categoriasComVideos);
+      })
+      .catch((err) => {
+        console.log('Erro', err);
+      });
+  }, []);
+
+  return (
+    <Layout>
+      {initialData.length === 0 && <div>Loading...</div>}
+      {initialData.length >= 1 && (
+        <>
+          <BannerMain
+            videoTitle={initialData[0].videos[0].titulo}
+            url={initialData[0].videos[0].url}
+            videoDescription="O que é Front-end? Trabalhando na área os termos HTML, CSS e JavaScript fazem parte da rotina das desenvolvedoras e desenvolvedores. Mas o que eles fazem, afinal? Descubra com a Vanessa!"
+          />
+          <Carousel ignoreFirstVideo category={initialData[0]} />
+        </>
+      )}
+      {/*
 
       <Carousel ignoreFirstVideo category={dadosIniciais.categorias[0]} />
 
@@ -30,8 +47,8 @@ function Home() {
 
       <Carousel category={dadosIniciais.categorias[5]} />
 
-      <Footer />
-    </div>
+      */}
+    </Layout>
   );
 }
 
